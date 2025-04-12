@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>Update</h1>
+ID: <input type="number" id="input_id"><br>
+Title: <input type="text" id="input_title"><br>
+Content: <input type="text" id="input_content"><br>
+Author: <input type="text" id="input_author"><br>
+<button onclick="read()">Show</button><br>
+<button onclick="update()">Update</button><br>
+
+<script>
+    function read() {
+        $.ajax({
+            url: "/api/postboard/read",
+            method: "GET",
+            data: {
+                id: $("#input_id").val()
+            },
+            success: (data, status, xhr) => {
+                alert(JSON.stringify(data));
+                $('#input_title').val(data.title || "N/A");
+                $('#input_content').val(data.content || "N/A");
+                $('#input_author').val(data.author || "N/A");
+            },
+            error: (data, status, xhr) => {
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+
+    function update() {
+        $.ajax({
+            url: "/api/postboard/update",
+            method: "PUT",
+            data: {
+                id: $("#input_id").val(),
+                title: $("#input_title").val(),
+                content: $("#input_content").val(),
+                author: $("#input_author").val(),
+            },
+            success: (data, status, xhr) => {
+                alert("Post updated: " + JSON.stringify(data));
+            },
+            error: (data, status, xhr) => {
+                alert("Error: " + JSON.stringify(data));
+            },
+        });
+    }
+</script>
+</body>
+</html>

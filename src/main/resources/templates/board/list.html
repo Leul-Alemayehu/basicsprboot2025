@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Listing</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>Board List</h1>
+<button onclick="boardList()">List</button>
+<div id="board"></div>
+
+<script>
+    function boardList() {
+        $.ajax({
+            url: "/api/board/list",
+            method: "GET",
+            data: {},
+            success: (data, status, xhr) => {
+                alert(JSON.stringify(data));
+
+            },
+            error: (data, status, xhr) => {
+                alert(JSON.stringify(data));
+            },
+        });
+
+    }
+</script>
+
+</body>
+</html>

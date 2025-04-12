@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Board List</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>Board List</h1>
+<button onclick="boardList()">List</button>
+<div id="board"></div>
+
+<script>
+    function boardList() {
+        $.ajax({
+            url: "/api/postboard/list",
+            method: "GET",  // Postboard
+            success: (data, status, xhr) => {
+
+                let htmlContent = "<ul>";
+                data.forEach(post => {
+                    htmlContent += `<li><strong>Title: ${post.title}</strong><br>Content: ${post.content}<br>Author: ${post.author}<br><br></li>`;
+                });
+                htmlContent += "</ul>";
+                $('#board').html(htmlContent);  // Update the board div with the list
+            },
+            error: (data, status, xhr) => {
+                alert("Error fetching board list");
+            },
+        });
+    }
+</script>
+
+</body>
+</html>
