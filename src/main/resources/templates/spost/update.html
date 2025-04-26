@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Service POST Update or Delete</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>Service Update or Delete</h1>
+ID: <input type="number" id="input_id"><br>
+Title: <input type="text" id="input_title"><br>
+Content: <input type="text" id="input_content"><br>
+Author: <input type="text" id="input_author"><br>
+<button onclick="read()">Show</button><br>
+<button onclick="update()">Update</button><br>
+<button onclick="del()">Delete</button><br>
+<script>
+  function read() {
+    $.ajax({
+      url: "/api/spost/read",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ id: $("#input_id").val() }),
+      success: (data) => {
+        alert(JSON.stringify(data));
+        $('#input_title').val(data.title || "N/A");
+        $('#input_content').val(data.content || "N/A");
+        $('#input_author').val(data.author || "N/A");
+      },
+      error: (xhr) => {
+        alert(JSON.stringify(xhr.responseText));
+      },
+    });
+  }
+
+  function update() {
+    $.ajax({
+      url: "/api/spost/update",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({
+        id: $("#input_id").val(),
+        title: $("#input_title").val(),
+        content: $("#input_content").val(),
+        author: $("#input_author").val(),
+      }),
+      success: (data) => {
+        alert("Update successful!");
+      },
+      error: (xhr) => {
+        alert(JSON.stringify(xhr.responseText));
+      },
+    });
+  }
+
+  function del() {
+    $.ajax({
+      url: "/api/spost/delete",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ id: $("#input_id").val() }),
+      success: (data) => {
+        alert("Delete successful!");
+      },
+      error: (xhr) => {
+        alert(JSON.stringify(xhr.responseText));
+      },
+    });
+  }
+</script>
+</body>
+</html>

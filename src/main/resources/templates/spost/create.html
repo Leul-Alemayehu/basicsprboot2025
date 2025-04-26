@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Service POST Board Create</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>Create Board with Service (POST)</h1>
+title: <input type="text" name="title" id="input_title"><br>
+content: <input type="text" name="content" id="input_content"><br>
+author: <input type="text" name="author" id="input_author"><br>
+<button onclick="create_spost()">Create</button>
+<script>
+  function create_spost() {
+    $.ajax({
+      url: "/api/spost/create",
+      method: "POST",
+      contentType: "application/json",  // Indicating the data is JSON
+      data: JSON.stringify({
+        title: $('#input_title').val(),
+        content: $('#input_content').val(),
+        author: $('#input_author').val(),
+      }),
+      success: (data, status, xhr) => {
+        alert(JSON.stringify(data));
+      },
+      error: (data, status, xhr) => {
+        alert(JSON.stringify(data));
+      },
+    });
+  }
+</script>
+</body>
+</html>

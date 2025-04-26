@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Service Board List</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>Service Board List</h1>
+
+<button onclick="spostList()">List</button>
+
+<div id="board"></div>
+
+<script>
+  function spostList() {
+    const filterValue = $('#filter_input').val();
+
+    $.ajax({
+      url: "/api/sboard/list",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ filter: filterValue }),
+      success: (data, status, xhr) => {
+        let htmlContent = "<ul>";
+        data.forEach(post => {
+          htmlContent += `<li><strong>Title: ${post.title}</strong><br>Content: ${post.content}<br>Author: ${post.author}<br><br></li>`;
+        });
+        htmlContent += "</ul>";
+        $('#board').html(htmlContent);
+      },
+      error: (xhr, status, error) => {
+        alert("Error fetching board list: " + xhr.responseText);
+      },
+    });
+  }
+</script>
+
+</body>
+</html>
