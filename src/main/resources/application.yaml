@@ -1,0 +1,36 @@
+spring:
+  application:
+   name: basicsprboot2025
+  datasource:
+    url: jdbc:mysql://localhost:3306/springbootbasics2025
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hiberate:
+        format_sql: true
+        default_batch_fetch_size: 100
+        jdbc:
+          time_zone: Africa/Nairobi
+  thymeleaf:
+    cache: false
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+    remote:
+        restart:
+          enabled: false
+  freemarker:
+    cache: false
+  sql:
+    init:
+      mode: always
+
+
