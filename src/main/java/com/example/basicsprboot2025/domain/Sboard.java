@@ -6,14 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@EntityListeners(AuditingEntityListener.class)
+@Setter
 @Getter
 @Entity
-public class Sboard {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
-    @Setter String title;
-    @Setter String content;
-    @Setter String author;
+public class Sboard extends AuditingFields{
+    // @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
+    String title;
+    String content;
+    String author;
     public Sboard() {
 
     }
